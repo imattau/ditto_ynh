@@ -1,0 +1,16 @@
+#!/bin/bash
+set -eu
+
+source /usr/share/yunohost/helpers
+source "$(dirname "$0")/_common.sh"
+
+ynh_script_progression --message="Refreshing Ditto source files..." --weight=1
+ynh_setup_source --source_id=main --dest_dir="$install_dir"
+
+ynh_script_progression --message="Building Ditto frontend..." --weight=5
+build_ditto
+
+ynh_script_progression --message="Updating Nginx configuration..." --weight=1
+ynh_config_add_nginx
+
+ynh_script_progression --message="Ditto upgrade complete" --last

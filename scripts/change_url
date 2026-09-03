@@ -1,0 +1,9 @@
+#!/bin/bash
+set -eu
+
+source /usr/share/yunohost/helpers
+
+ynh_script_progression --message="Updating Ditto URL..." --weight=1
+ynh_config_change_url_nginx
+
+ynh_script_progression --message="Ditto URL update complete" --last

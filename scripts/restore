@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eu
+
+source /usr/share/yunohost/helpers
+source "$(dirname "$0")/_common.sh"
+
+ynh_script_progression --message="Restoring Ditto files..." --weight=1
+ynh_restore "$install_dir/dist"
+chown -R www-data: "$install_dir"
+
+ynh_script_progression --message="Restoring Ditto Nginx configuration..." --weight=1
+ynh_config_add_nginx
+
+ynh_script_progression --message="Ditto restore complete" --last
